@@ -2,7 +2,7 @@ FROM php:7.4-apache
 
 # Install required PHP extensions
 RUN apt-get update && \
-    apt-get install -y libfreetype6-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev libzip-dev && \
+    apt-get install -y libfreetype6-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev libzip-dev libxml2-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install gd mysqli pdo pdo_mysql soap zip
 

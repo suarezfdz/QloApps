@@ -15,7 +15,8 @@ COPY ./ /var/www/html/
 # Set permissions for Apache
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html
-
+# Set PHP configuration for upload_max_filesize
+RUN echo "upload_max_filesize=16M" >> /usr/local/etc/php/conf.d/uploads.ini
 # Environment variables for MySQL connection
 ENV MYSQL_HOST=db
 ENV MYSQL_USER=root

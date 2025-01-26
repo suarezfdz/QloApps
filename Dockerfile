@@ -30,6 +30,6 @@ EXPOSE 80
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # Use Apache to serve the application
-/usr/local/bin/docker-entrypoint.sh
 
 
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

@@ -7,7 +7,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 RUN a2enmod rewrite
 
 # Copy QloApps source code to Apache root directory
-COPY ./qloapps /var/www/html/
+COPY ./ /var/www/html/
 
 # Set permissions for Apache
 RUN chown -R www-data:www-data /var/www/html && \

@@ -1,5 +1,9 @@
 FROM php:7.4-apache
-
+RUN apt-get update && \
+    apt-get install -y default-mysql-server && \
+    service mysql start && \
+    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'myrootpassword';" && \
+    mysql -e "FLUSH PRIVILEGES;"
 # Install required PHP extensions
 RUN apt-get update && \
     apt-get install -y libfreetype6-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev libzip-dev libxml2-dev && \
@@ -27,6 +31,6 @@ ENV MYSQL_DATABASE=qlo161
 EXPOSE 80
 
 # Use Apache to serve the application
-CMD ["apache2-foreground"]
+service mysql start && apache2-foreground
 
 

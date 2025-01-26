@@ -1,10 +1,7 @@
 FROM php:7.4-apache
 
 # Install required PHP extensions
-RUN set -e; \\
-    apt-get update && \\
-    apt-get install -y libpng-dev libzip-dev && \\
-    docker-php-ext-install gd mysqli pdo pdo_mysql soap zip
+RUN docker-php-ext-install mysqli pdo pdo_mysql libpng-dev libzip-dev gd soap zip
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
@@ -28,6 +25,4 @@ EXPOSE 80
 # Use Apache to serve the application
 CMD ["apache2-foreground"]
 
-# Set PHP configuration
 
-RUN echo "upload_max_filesize=16M" > /usr/local/etc/php/conf.d/uploads.ini

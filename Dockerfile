@@ -2,7 +2,7 @@ FROM php:7.4-apache
 
 # Install MySQL client and required PHP extensions
 RUN apt-get update && \
-    apt-get install -y libfreetype6-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev libzip-dev libxml2-dev default-mysql-client && \
+    apt-get install -y libfreetype6-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev libzip-dev libxml2-dev default-mysql-client curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Install and configure PHP extensions
@@ -27,6 +27,10 @@ ENV MYSQL_HOST=db
 ENV MYSQL_USER=root
 ENV MYSQL_PASSWORD=myrootpassword
 ENV MYSQL_DATABASE=qlo161
+
+# Download the wait-for-it script
+RUN curl -o /usr/local/bin/wait-for-it https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it && \
+    chmod +x /usr/local/bin/wait-for-it
 
 # Expose ports
 EXPOSE 80

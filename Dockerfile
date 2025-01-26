@@ -1,7 +1,10 @@
 FROM php:7.4-apache
 
 # Install required PHP extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql libpng-dev libzip-dev gd soap zip
+RUN apt-get update && \
+    apt-get install -y libfreetype6-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev libzip-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd mysqli pdo pdo_mysql soap zip
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite

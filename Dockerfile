@@ -1,9 +1,7 @@
 FROM php:7.4-apache
 RUN apt-get update && \
-    apt-get install -y default-mysql-server && \
-    service mysql start && \
-    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'myrootpassword';" && \
-    mysql -e "FLUSH PRIVILEGES;"
+    apt-get install -y default-mysql-server \
+    && rm -rf /var/lib/apt/lists/*
 # Install required PHP extensions
 RUN apt-get update && \
     apt-get install -y libfreetype6-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev libzip-dev libxml2-dev && \
@@ -29,8 +27,9 @@ ENV MYSQL_DATABASE=qlo161
 
 # Expose ports
 EXPOSE 80
-
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # Use Apache to serve the application
-service mysql start && apache2-foreground
+/usr/local/bin/docker-entrypoint.sh
 
 

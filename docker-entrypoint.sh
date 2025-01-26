@@ -1,12 +1,14 @@
 #!/bin/bash
 set -e
-mkdir -p /run/mysqld
-chown -R mysql:mysql /run/mysqld
 
-mysqld
-# wait-for-it -t 30 localhost:3306 --
-mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'myrootpassword';"
-mysql -e "FLUSH PRIVILEGES;"
+# Wait for MySQL to be available
+echo "Waiting for MySQL to be available..."
+/usr/local/bin/wait-for-it db:3306 --timeout=30 --strict -- echo "MySQL is up!"
 
+# Set MySQL root password
+echo "Setting MySQL root password..."
+mysql -h db -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+mysql -h db -u root -e "FLUSH PRIVILEGES;"
+
+# Run Apache in the foreground
 exec apache2-foreground
-

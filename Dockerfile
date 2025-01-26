@@ -28,6 +28,5 @@ EXPOSE 80
 CMD ["apache2-foreground"]
 
 # Set PHP configuration
-COPY --from=builder /usr/local/etc/php/php.ini /usr/local/etc/php/php.ini
 
-RUN echo "upload_max_filesize=16M" >> /usr/local/etc/php/conf.d/uploads.ini
+RUN echo "upload_max_filesize=16M" > /usr/local/etc/php/conf.d/uploads.ini

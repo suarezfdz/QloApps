@@ -28,8 +28,8 @@ ENV MYSQL_USER=root
 ENV MYSQL_PASSWORD=myrootpassword
 ENV MYSQL_DATABASE=qlo161
 
-# Download the wait-for-it script
-RUN curl -o /usr/local/bin/wait-for-it https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it && \
+# Download the wait-for-it script (using correct URL)
+RUN curl -o /usr/local/bin/wait-for-it https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
     chmod +x /usr/local/bin/wait-for-it
 
 # Expose ports

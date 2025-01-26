@@ -2,10 +2,8 @@ FROM php:7.4-apache
 
 # Install required PHP extensions
 RUN set -e; \\
-    apt-get update
-    if ! dpkg -s libpng-dev libzip-dev >/dev/null 2>&1; then \\
-        apt-get install -y libpng-dev libzip-dev; \\
-    fi; \\
+    apt-get update && \\
+    apt-get install -y libpng-dev libzip-dev && \\
     docker-php-ext-install gd mysqli pdo pdo_mysql soap zip
 
 # Enable Apache mod_rewrite
